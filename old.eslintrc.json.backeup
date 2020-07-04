@@ -1,0 +1,46 @@
+{
+    "env": {
+        "es6": true,
+        "node": true,
+        "commonjs": true
+    },
+    "extends": ["eslint:recommended"],
+    "globals": {
+        "Atomics": "readonly",
+        "SharedArrayBuffer": "readonly"
+    },
+    "parserOptions": {
+        "ecmaVersion": 2018
+    },
+    "ignorePatterns": [
+        "./node_modules/",
+        "./.vscode/*",
+        "./images.dev.bridgelabz.com/*",
+        "./.git/*"
+    ],
+    "rules": {
+		"no-mixed-spaces-and-tabs": "error",
+		"indent": [ "error", 4 ],
+		"arrow-parens": "off", //es6
+		"linebreak-style": [ "error", "unix" ],
+		"max-len": ["error", { "code": 120 }],
+		"no-console": "off",
+		"no-control-regex": "error",
+		"no-debugger": "warn",
+		"no-duplicate-case": "error",
+		"no-empty": "error",
+		"no-empty-character-class": "error",
+		"no-extra-boolean-cast": "error",
+		"no-extra-semi": "error",
+		"no-invalid-regexp": "error",
+		"no-irregular-whitespace": "error",
+		"no-sparse-arrays": "error",
+		"no-unexpected-multiline": "error",
+		"no-var": "off", //es6
+		"prefer-const": "off", //es6
+		"quotes": [ "error", "single" ],
+		"semi": [ "error", "always" ],
+		"use-isnan": "error",
+		"valid-typeof": "error"
+	}
+}

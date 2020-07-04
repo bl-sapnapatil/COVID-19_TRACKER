@@ -4,12 +4,60 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "format": "prettier --write './server/*.js' './index.js' './config/*.js'",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "cd public/superadmin && bower install --allow-root",
+    "lint:fix": "./node_modules/eslint/bin/eslint.js . --fix",
+    "lint": "./node_modules/eslint/bin/eslint.js -c .eslintrc.js --max-warnings=0 --report-unused-disable-directives  --ext .js . && echo '✔  Your .js files look good.'",
+    "dev-test": "mocha && npm run start",
+    "stage-build": "ng build"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "aws-sdk": "^2.709.0",
+    "body-parser": "^1.19.0",
+    "cli-color": "^2.0.0",
+    "compression": "^1.7.4",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "csurf": "^1.11.0",
+    "dateformat": "^3.0.3",
+    "deasync": "^0.1.20",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "mongoose": "^5.9.20"
+    "express-session": "^1.17.1",
+    "express-validator": "^6.6.0",
+    "express-winston": "^4.0.3",
+    "fs": "0.0.1-security",
+    "fs-extra": "^9.0.1",
+    "helmet": "^3.23.3",
+    "install": "^0.13.0",
+    "mongoose": "^5.9.21",
+    "nodemailer": "^6.4.10",
+    "nodemailer-smtp-transport": "^2.7.4",
+    "path": "^0.12.7",
+    "redis": "^3.0.2",
+    "request": "^2.88.2",
+    "winston": "^3.3.3",
+    "xoauth2": "^1.2.0"
+  },
+  "engines": {
+    "node": "^10.21.0",
+    "npm": ">= 4"
+  },
+  "config": {
+    "unsafe-perm": true
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.3.1",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-config-strongloop": "^2.1.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.20.3",
+    "prettier": "^1.18.2"
   }
 }
