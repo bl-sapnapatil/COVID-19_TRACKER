@@ -17,7 +17,7 @@ COVID19 Tracker is a porject tracking the COVID19 Pandemic.
 
     ```sh
     # clone the repository locally
-    git clone https://github.com/bl-sapnapatil/covid19-tracker-nodeJS.git
+    git clone https://github.com/dilip-bridgelabz/covid19-tracker-nodeJS.git
     ```
 
     ```sh
