@@ -7,6 +7,8 @@
  *******************************************************************************************/
 
 const mongooservice = require("../config/mongooConfig");
+const redis = require("./cache");
+const { Logger } = require("mongodb");
 class StateService {
   /**
    *@description State service async returns a promise which is either resolved/rejected.
@@ -70,6 +72,14 @@ class StateService {
       deathCount = 0;
       totalCount = 0;
     }
+    let key = "getStatesData";
+    redis.set(key, JSON.stringify(finalRecord), (error, result) => {
+      if (error) {
+        console.log("error", error);
+      } else {
+        console.log("Success get all state wise data");
+      }
+    });
     return { sucess: "true", message: "success", data: finalRecord };
   }
 }

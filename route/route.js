@@ -11,9 +11,14 @@
 var express = require("express");
 var router = express.Router();
 const controller = require("../controller/stateController");
+const cacheController = require("../controller/cacheController");
 
 /**
  *@description The particular method is called depending on the route.
  */
-router.get("/getAllStateData", controller.getAllStateData);
+router.get(
+  "/getAllStateData",
+  cacheController.cacheStates,
+  controller.getAllStateData
+);
 module.exports = router;

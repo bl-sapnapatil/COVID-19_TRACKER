@@ -27,7 +27,6 @@ class MongoServices {
       .db(dbName)
       .collection(collectionName)
       .find()
-      .limit(100)
       .toArray();
 
     await client.close();
