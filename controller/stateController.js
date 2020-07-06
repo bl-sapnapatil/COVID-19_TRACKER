@@ -14,14 +14,18 @@ class StateController {
    */
 
   async getAllStateData(req, res) {
-    await service
-      .getStateData()
-      .then((data) => {
-        res.status(200).send(data);
-      })
-      .catch((err) => {
-        res.send(err);
-      });
+    try {
+      await service
+        .getStateData()
+        .then((data) => {
+          res.status(200).send(data);
+        })
+        .catch((err) => {
+          res.status(422).send(err);
+        });
+    } catch (error) {
+      res.status(422).send({ message: "Operation failed" });
+    }
   }
 }
 

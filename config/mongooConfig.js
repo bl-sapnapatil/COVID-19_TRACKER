@@ -5,6 +5,10 @@
  * @author    : PRAVIN DESHMUKH
  * @since     : 06/07/2020
  *******************************************************************************************/
+/**
+ *@description Dependencies are installed for execution.
+ */
+
 const mongodb = require("mongodb");
 const MongoClient = mongodb.MongoClient;
 require("dotenv").config();
@@ -23,6 +27,7 @@ class MongoServices {
       .db(dbName)
       .collection(collectionName)
       .find()
+      .limit(100)
       .toArray();
 
     await client.close();

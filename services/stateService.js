@@ -7,7 +7,11 @@
  *******************************************************************************************/
 
 const mongooservice = require("../config/mongooConfig");
-class Service {
+class StateService {
+  /**
+   *@description State service async returns a promise which is either resolved/rejected.
+   */
+
   async getStateData() {
     let casesRecord = {};
 
@@ -21,6 +25,7 @@ class Service {
 
     let result = await mongooservice.getData();
 
+    // get two field into result array.
     for (var data in result) {
       completeData.push({
         state: result[data].detectedstate,
@@ -28,6 +33,7 @@ class Service {
       });
     }
 
+    // using include method remove the duplicate state if array contains duplicate state.
     for (var i in completeData) {
       if (!statesArray.includes(completeData[i].state)) {
         statesArray.push(completeData[i].state);
@@ -37,6 +43,7 @@ class Service {
     for (let state in statesArray) {
       for (let data in completeData) {
         if (statesArray[state] == completeData[data].state) {
+          //if state in statesArray matches with an completedData state then check completeData of currentStatus and increment count.
           if (completeData[data].currentStatus == "Recovered") {
             recoveredCount++;
           }
@@ -67,4 +74,4 @@ class Service {
   }
 }
 
-module.exports = new Service();
+module.exports = new StateService();
