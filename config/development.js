@@ -1,7 +1,8 @@
 /**
  * @file development.js
  *
- * Development file is the default setup expected to have on a localmachine to work with the Production config
+ * @overview Development file is the default setup expected to have on a localmachine
+ * to work with the Production config.
  *
  * @author  Dilip <dilip.more@bridgelabz.com>
  * @license ICS

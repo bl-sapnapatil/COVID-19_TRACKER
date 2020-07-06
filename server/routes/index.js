@@ -11,19 +11,12 @@
  */
 
 /**
- * @description Module Dependencies
- * @define Define the variable
- *
  * @const express Node back-end framework to manage the API & other task.
- * @const speakeasy Sending the SMS OTP library, having the time duration.
- * @const CircularJSON Solution for Printing the JSON having the circular json reference parent element.
- * @const Proimise Promise library bluebird
  * @const app Express instance.
  */
 const express = require('express');
-// const config = require("../../config").get();
+const controller = require('../controller/stateController').default;
 
-// let router;
 /**
  * @description Create Router instance
  * @typedef {Object} router
@@ -40,11 +33,10 @@ router.get('/', (req, res) =>
 	})
 );
 
-router.get('/logout', (req, res) => {
-	req.logout();
-	req.session.destroy();
-	return res.redirect('/');
-});
+/**
+ *@description The particular method is called depending on the route.
+ */
+router.get('/getAllStateData', controller.getAllStateData);
 
 /**
  * @description Export Module

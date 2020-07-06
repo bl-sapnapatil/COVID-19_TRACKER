@@ -1,8 +1,8 @@
 {
-  "name": "covid-19-backend",
+  "name": "covid19-tracker",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "config.js",
   "scripts": {
     "start": "node index.js",
     "format": "prettier --write './server/*.js' './index.js' './config/*.js'",
@@ -41,7 +41,9 @@
     "redis": "^3.0.2",
     "request": "^2.88.2",
     "winston": "^3.3.3",
-    "xoauth2": "^1.2.0"
+    "xoauth2": "^1.2.0",
+    "mongodb": "^3.5.9",
+    "swagger-ui-express": "^4.1.4"
   },
   "engines": {
     "node": "^10.21.0",
@@ -51,6 +53,7 @@
     "unsafe-perm": true
   },
   "devDependencies": {
+    "typescript": "^3.9.6",
     "babel-eslint": "^10.1.0",
     "eslint": "^7.3.1",
     "eslint-config-airbnb": "^18.2.0",

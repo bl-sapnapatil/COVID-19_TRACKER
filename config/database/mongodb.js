@@ -19,7 +19,8 @@ mongoose.Promise = global.Promise;
  */
 const connect = config => {
 	mongoose.connect(
-		config.database.mongodb.dbURI, {
+		config.database.mongodb.dbURI,
+		{
 			useNewUrlParser: true,
 			useUnifiedTopology: true,
 			serverSelectionTimeoutMS: 5000, // Keep trying to send operations for 5 seconds
