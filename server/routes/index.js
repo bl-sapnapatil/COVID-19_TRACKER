@@ -15,7 +15,7 @@
  * @const app Express instance.
  */
 const express = require('express');
-const controller = require('../controller/stateController').default;
+const controller = require('../controller/stateController');
 const cacheController = require('../controller/cacheController');
 
 /**

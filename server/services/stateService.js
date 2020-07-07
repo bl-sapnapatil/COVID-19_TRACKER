@@ -6,7 +6,7 @@
  * @since     : 06/07/2020
  *******************************************************************************************/
 
-const mongooservice = require('../../config/mongooConfig').default;
+const mongooservice = require('../../config/mongooConfig');
 const redis = require('../services/cacheService');
 class StateService {
 	/**
@@ -72,8 +72,7 @@ class StateService {
 			totalCount = 0;
 		}
 		let key = 'getStatesData';
-		// eslint-disable-next-line no-unused-vars
-		redis.set(key, JSON.stringify(finalRecord), (error, result) => {
+		redis.set(key, JSON.stringify(finalRecord), error => {
 			if (error) {
 				console.log('error', error);
 			} else {
