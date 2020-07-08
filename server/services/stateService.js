@@ -11,6 +11,7 @@ const redis = require('../services/cacheService');
 class StateService {
 	/**
 	 * @description State service async returns a promise which is either resolved/rejected.
+	 *
 	 */
 	async getStateData() {
 		let casesRecord = {};
@@ -79,11 +80,12 @@ class StateService {
 				console.log('Success get all state wise data');
 			}
 		});
-		return {
+		let response = {
 			sucess: 'true',
 			message: 'success',
-			data: finalRecord,
+			stateData: finalRecord,
 		};
+		return { response };
 	}
 }
 

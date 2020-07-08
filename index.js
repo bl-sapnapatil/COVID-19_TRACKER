@@ -209,4 +209,4 @@ app.listen(config.port, () => {
  * @description Export the express app instance
  */
 
-module.exports.app = app;
+module.exports = app;
