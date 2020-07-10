@@ -3,6 +3,7 @@ module.exports = {
 		es6: true,
 		node: true,
 		commonjs: true,
+		mocha: true,
 	},
 	plugins: ['eslint-plugin-prettier', 'import'],
 	extends: ['eslint:recommended'],
