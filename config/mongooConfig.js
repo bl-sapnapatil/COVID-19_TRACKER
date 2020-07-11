@@ -17,20 +17,40 @@ const dbName = process.env.DB_NAME;
 const collectionName = process.env.COLLECTION_NAME;
 
 class MongoServices {
-	async getData() {
-		const client = await MongoClient.connect(dbUrl, {
+	constructor() {
+		this.client = MongoClient.connect(dbUrl, {
 			useNewUrlParser: true,
 			useUnifiedTopology: true,
 		});
-
-		const result = await client
+	}
+	async getData() {
+		console.log('in getData');
+		const result = await this.client
 			.db(dbName)
 			.collection(collectionName)
 			.find()
 			.limit(100)
 			.toArray();
+		console.log('result---------->', result.length);
+		return result;
+	}
 
-		await client.close();
+	async getSearch(request) {
+		const result = await this.client
+			.db(dbName)
+			.collection(collectionName)
+			.find({
+				$and: [
+					{
+						// eslint-disable-next-line prettier/prettier
+						$or: [
+							{ detecteddistrict: { $regex: request.value } },
+							{ detectedstate: { $regex: request.value } },
+						],
+					},
+				],
+			})
+			.toArray();
 		return result;
 	}
 }

@@ -18,6 +18,10 @@ class Covid19CountService {
 			count = {};
 		// eslint-disable-next-line prettier/prettier
 		let result = await mongooservice.getData();
+		console.log('in service', result);
+		result.map(data => {
+			console.log(data);
+		});
 		for (var data in result) {
 			if (result[data].currentstatus === 'Recovered') {
 				recoveredCount = recoveredCount + 1;
@@ -36,7 +40,8 @@ class Covid19CountService {
 		};
 
 		// eslint-disable-next-line no-unused-vars
-		redisService.set('covid19Count', JSON.stringify(count), response => {
+		redisService.set('COVID19_COUNT', JSON.stringify(count), response => {
+			console.log('response', response);
 			return {
 				success: true,
 				message: 'success',

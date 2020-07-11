@@ -132,13 +132,13 @@ const envConfig = {
 		return require('./production')(winstonConfig);
 	},
 	development() {
-		return require('./development').default(winstonConfig);
+		return require('./development')(winstonConfig);
 	},
 	staging() {
 		return require('./staging')(winstonConfig);
 	},
 	local() {
-		return require('./local').default(winstonConfig);
+		return require('./local')(winstonConfig);
 	},
 };
 
@@ -542,7 +542,7 @@ module.exports = {
 			 * @description Require the database instance.
 			 * @param {Object} this.config Pass the current config setup
 			 */
-			this.config.db = require('./database').default(this.config);
+			this.config.db = require('./database')(this.config);
 
 			sync.setConfig(that);
 			config = this.config;

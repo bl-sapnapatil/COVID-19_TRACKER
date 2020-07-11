@@ -7,12 +7,14 @@
  *******************************************************************************************/
 
 const mongooservice = require('../../config/mongooConfig');
-
+// const Client = require('@elastic/elasticsearch');
+// const client = new Client({
+// 	node: 'http://localhost:9200',
+// });
 class SearchService {
-	async getSearch() {
+	async getSearch(request) {
 		console.log('called service');
-
-		let result = await mongooservice.getData();
+		let result = await mongooservice.getData(request);
 		return result;
 	}
 }

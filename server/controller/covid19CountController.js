@@ -18,20 +18,24 @@ class Covid19CountController {
 	async getAllCount(req, res) {
 		try {
 			if (req.body === undefined) throw 'Request body cannot be undefined';
+			let result = {};
 			await service
 				.getAllCount()
 				// eslint-disable-next-line no-unused-vars
 				.then(data => {
-					let result = {};
-					redisService.get('covid19Count', covid19Count => {
+					redisService.get('COVID19_COUNT', covid19Count => {
 						result.success = true;
 						result.message = 'Successfully got data';
 						result.data = JSON.parse(covid19Count);
+						console.log('result', result);
 						return res.status(200).send(result);
 					});
 				})
 				.catch(error => {
-					return res.status(400).send(error);
+					result.success = false;
+					result.message = 'Error while fetching data';
+					result.error = error;
+					return res.status(400).send(result);
 				});
 		} catch (error) {
 			return res.status(422).send(error);

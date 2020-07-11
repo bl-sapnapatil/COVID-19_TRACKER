@@ -15,7 +15,9 @@
  * @const app Express instance.
  */
 const express = require('express');
-const controller = require('../controller/stateController').default;
+const controller = require('../controller/stateController');
+const covid19CountController = require('../controller/covid19CountController');
+const searchController = require('../controller/searchController');
 
 /**
  * @description Create Router instance
@@ -37,6 +39,8 @@ router.get('/', (req, res) =>
  *@description The particular method is called depending on the route.
  */
 router.get('/getAllStateData', controller.getAllStateData);
+router.get('/getAllCount', covid19CountController.getAllCount);
+router.post('/search', searchController.getSearchData);
 
 /**
  * @description Export Module

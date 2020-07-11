@@ -19,9 +19,11 @@ class searchController {
 			if (req.body.value === undefined) throw 'Request body cannot be undefined';
 			if (req.body.value === null) throw 'Request body cannot be null';
 			if (req.body.value.length === 0) throw 'Request body cannot be empty';
-
+			let request = {
+				value: req.body.value,
+			};
 			await service
-				.getSearch()
+				.getSearch(request)
 				.then(data => {
 					res.status(200).send(data);
 				})
