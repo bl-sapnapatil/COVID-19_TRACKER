@@ -18,8 +18,28 @@ mongoose.Promise = global.Promise;
  * @description Connecting the mongodb
  */
 const connect = config => {
+	if (config.database.mongodb.dbFullURL) {
+		if (config.database.mongodb.username && config.database.mongodb.password && config.database.mongodb.name) {
+			config.database.mongodb.dbFullURL = config.database.mongodb.dbFullURL.replace(
+				'<host>',
+				config.database.mongodb.host
+			);
+			config.database.mongodb.dbFullURL = config.database.mongodb.dbFullURL.replace(
+				'<username>',
+				config.database.mongodb.username
+			);
+			config.database.mongodb.dbFullURL = config.database.mongodb.dbFullURL.replace(
+				'<password>',
+				config.database.mongodb.password
+			);
+			config.database.mongodb.dbFullURL = config.database.mongodb.dbFullURL.replace(
+				'<dbname>',
+				config.database.mongodb.name
+			);
+		}
+	}
 	mongoose.connect(
-		config.database.mongodb.dbURI,
+		config.database.mongodb.dbFullURL,
 		{
 			useNewUrlParser: true,
 			useUnifiedTopology: true,

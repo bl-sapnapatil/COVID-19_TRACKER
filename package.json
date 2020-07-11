@@ -7,7 +7,6 @@
     "start": "node index.js",
     "format": "prettier --write './server/*.js' './index.js' './config/*.js'",
     "test": "mocha",
-    "postinstall": "cd public/superadmin && bower install --allow-root",
     "lint:fix": "./node_modules/eslint/bin/eslint.js . --fix",
     "lint": "./node_modules/eslint/bin/eslint.js -c .eslintrc.js --max-warnings=0 --report-unused-disable-directives  --ext .js . && echo '✔  Your .js files look good.'",
     "dev-test": "mocha && npm run start",

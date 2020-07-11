@@ -9,15 +9,22 @@
  */
 
 const winston = require('winston');
+const path = require('path');
 
+const logFormat = winston.format.combine(
+	winston.format.colorize(),
+	winston.format.timestamp(),
+	winston.format.align(),
+	winston.format.printf(info => `${info.timestamp} ${info.level}: ${info.message}`)
+);
 /**
  * @exports : Exports developement Config Environment based Configuration
  *
  */
 module.exports = config => {
-	const DBDomain = process.env.COVID19_DB_PORT
-		? `${process.env.COVID19_DB_HOST}:${process.env.COVID19_DB_PORT}`
-		: `${process.env.COVID19_DB_HOST}`;
+	const DBDomain = process.env.COVID19_DB_PORT ?
+		`${process.env.COVID19_DB_HOST}:${process.env.COVID19_DB_PORT}` :
+		`${process.env.COVID19_DB_HOST}`;
 	const CREDENTIALS = `${process.env.COVID19_DB_USERNAME}:${process.env.COVID19_DB_PASSWORD}`;
 	//const { logDir } = config;
 	return {
@@ -49,6 +56,8 @@ module.exports = config => {
 		database: {
 			debug: true,
 			mongodb: {
+				dbFullURL: process.env.COVID19_DB_URL,
+				host: process.env.COVID19_DB_HOST,
 				name: process.env.COVID19_DB_NAME,
 				dbURI: `mongodb+srv://${CREDENTIALS}@${DBDomain}${process.env.COVID19_DB_NAME}`,
 				username: process.env.COVID19_DB_USERNAME,
@@ -56,50 +65,16 @@ module.exports = config => {
 			},
 		},
 		loggers: winston.createLogger({
-			// 'exceptionHandlers': [
-			// 	new(winston.transports.Console)({
-			// 		'json': true
-			// 	}),
-			// 	new(winston.transports.File)({
-			// 		'level'				: 'error,warn',
-			// 		'filename'			: path.join(logDir, '/exception.log'),
-			// 		'handleExceptions'	: true,
-			// 		'json'				: true,
-			// 		'maxsize'			: 5242880, //5MB
-			// 		'maxFiles'			: 5,
-			// 		'prettyPrint'		: true,
-			// 		'zippedArchive'		: true,
-			// 		'colorize'			: 'all',
-			// 		'eol'				: '\n',
-			// 		'timestamp': () => {
-			// 			return '' + dateFormat(new Date(), 'ddd mmm d yyyy HH:MM:ss TT') + '';
-			// 		},
-			// 		'formatter': (options) => {
-			// 			// Return string will be passed to logger.
-			// 			const message = options.timestamp() + ' [' + options.level.toUpperCase() + '] - '
-			//							+ (undefined !== options.message ? options.message : '') +
-			// 							(options.meta && Object.keys(options.meta).length ? '\n\t'
-			//							+ JSON.stringify(options.meta) : '');
-			// 			return winston.config.colorize(options.level, message);
-			// 		}
-			// 	})
-			// ],
-			levels: winston.config.syslog.levels,
-			defaultMeta: { component: 'user-service' },
-			format: winston.format.combine(
-				winston.format.timestamp({
-					format: 'YYYY-MM-DD HH:mm:ss',
+			transports: [
+				new winston.transports.Console({
+					format: logFormat,
 				}),
-				winston.format.json()
-			),
-			transports: [new winston.transports.Console(), new winston.transports.File({ filename: 'combined.log' })],
-			exitOnError: false,
-			colors: config.colors,
+				new winston.transports.File({
+					filename: path.join(__dirname, '../logs/error.log'),
+					level: 'info,error,debug,warn',
+					maxsize: 500,
+				}),
+			],
 		}),
-		stream: {
-			write: (message, encoding) => {
-				this.loggers.info(message, encoding);
-			},
-		},
 	};
 };
