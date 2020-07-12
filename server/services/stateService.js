@@ -19,60 +19,51 @@ class StateService {
 		let activeCount = 0;
 		let recoveredCount = 0;
 		let deathCount = 0;
-		let totalCount = 0;
 		let statesArray = [];
 		let finalRecord = [];
-		var completeData = [];
+		let completeData = [];
 
 		let result = await mongooservice.getData();
 
 		// get two field into result array.
-		for (var data in result) {
-			completeData.push({
-				state: result[data].detectedstate,
-				currentStatus: result[data].currentstatus,
-			});
-		}
+		completeData = result.map(({ detectedstate, currentstatus }) => ({
+			detectedstate,
+			currentstatus,
+		}));
 
-		// using include method remove the duplicate state if array contains duplicate state.
-		for (var i in completeData) {
-			if (!statesArray.includes(completeData[i].state)) {
-				statesArray.push(completeData[i].state);
-			}
-		}
+		// using set get unique state name
+		statesArray = [...new Set(completeData.map(data => data.detectedstate))];
 
 		for (let state in statesArray) {
 			for (let data in completeData) {
-				if (statesArray[state] == completeData[data].state) {
+				if (statesArray[state] == completeData[data].detectedstate) {
 					// if state in statesArray matches with an completedData state then check
 					// completeData of currentStatus and increment count.
-					if (completeData[data].currentStatus == 'Recovered') {
+					if (completeData[data].currentstatus == 'Recovered') {
 						recoveredCount++;
 					}
-					if (completeData[data].currentStatus == 'Hospitalized') {
+					if (completeData[data].currentstatus == 'Hospitalized') {
 						activeCount++;
 					}
-					if (completeData[data].currentStatus == 'Deceased') {
+					if (completeData[data].currentstatus == 'Deceased') {
 						deathCount++;
 					}
 				}
 			}
-			totalCount = recoveredCount + activeCount + deathCount;
 			casesRecord = {
 				stateName: statesArray[state],
 				recover: recoveredCount,
 				active: activeCount,
 				death: deathCount,
-				total: totalCount,
+				total: recoveredCount + activeCount + deathCount,
 			};
 			finalRecord.push(casesRecord);
 
 			activeCount = 0;
 			recoveredCount = 0;
 			deathCount = 0;
-			totalCount = 0;
 		}
-		let key = 'getStatesData';
+		let key = 'COVID19_STATEDATA';
 		redis.set(key, JSON.stringify(finalRecord), error => {
 			if (error) {
 				console.log('error', error);

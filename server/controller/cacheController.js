@@ -5,7 +5,7 @@ class CacheController {
 	 *@description cacheStates API is used for retrieving list of all states wise in cache.
 	 */
 	cacheStates(req, res, next) {
-		let key = 'getStatesData';
+		let key = 'COVID19_STATEDATA';
 
 		//get method is used to retreiving data from radis
 		redis.get(key, (err, data) => {
