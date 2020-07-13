@@ -8,6 +8,8 @@
 
 const mongooservice = require('../../config/mongooConfig');
 const redis = require('../services/cacheService');
+const { COVID19_STATE_STATS_CACHEKEY } = require('../../redisKey');
+
 class StateService {
 	/**
 	 * @description State service async returns a promise which is either resolved/rejected.
@@ -63,13 +65,8 @@ class StateService {
 			recoveredCount = 0;
 			deathCount = 0;
 		}
-		let key = 'COVID19_STATEDATA';
-		redis.set(key, JSON.stringify(finalRecord), error => {
-			if (error) {
-				console.log('error', error);
-			} else {
-				console.log('Success get all state wise data');
-			}
+		redis.set(COVID19_STATE_STATS_CACHEKEY, JSON.stringify(finalRecord), res => {
+			return res.json({ sucess: 'true', message: 'success', data: finalRecord });
 		});
 		let response = {
 			sucess: 'true',

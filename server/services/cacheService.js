@@ -10,17 +10,22 @@
  */
 
 const redis = require('redis');
-//const express = require('express');
 const redisClient = redis.createClient();
+const config = require('../../config').get();
+
+/**
+ * @description Winston logger derived from the config
+ */
+const { loggers } = config;
 
 /**
  *@description Redis connection is initialized.
  */
 redisClient.on('connect', () => {
-	console.log('Redis clent connected..');
+	loggers.info('Redis clent connected..');
 });
 redisClient.on('error', err => {
-	console.log('something went wrong', err);
+	loggers.error('something went wrong', err);
 });
 
 class CacheService {
@@ -42,6 +47,20 @@ class CacheService {
 	 */
 	get(key, callback) {
 		redisClient.get(key, (err, result) => {
+			if (err) {
+				callback(err);
+			} else {
+				callback(null, result);
+			}
+		});
+	}
+
+	/**
+	 *@description Key is deleted from Redis.
+	 */
+
+	delete(key, callback) {
+		redisClient.del(key, (err, result) => {
 			if (err) {
 				callback(err);
 			} else {

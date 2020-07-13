@@ -22,9 +22,9 @@ const logFormat = winston.format.combine(
  *
  */
 module.exports = config => {
-	const DBDomain = process.env.COVID19_DB_PORT ?
-		`${process.env.COVID19_DB_HOST}:${process.env.COVID19_DB_PORT}` :
-		`${process.env.COVID19_DB_HOST}`;
+	const DBDomain = process.env.COVID19_DB_PORT
+		? `${process.env.COVID19_DB_HOST}:${process.env.COVID19_DB_PORT}`
+		: `${process.env.COVID19_DB_HOST}`;
 	const CREDENTIALS = `${process.env.COVID19_DB_USERNAME}:${process.env.COVID19_DB_PASSWORD}`;
 	//const { logDir } = config;
 	return {
