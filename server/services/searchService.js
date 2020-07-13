@@ -14,7 +14,7 @@ const mongooservice = require('../../config/mongooConfig');
 class SearchService {
 	async getSearch(request) {
 		console.log('called service');
-		let result = await mongooservice.getData(request);
+		let result = await mongooservice.getSearch(request);
 		return result;
 	}
 }

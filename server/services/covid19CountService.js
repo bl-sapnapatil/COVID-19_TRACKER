@@ -19,9 +19,6 @@ class Covid19CountService {
 		// eslint-disable-next-line prettier/prettier
 		let result = await mongooservice.getData();
 		console.log('in service', result);
-		result.map(data => {
-			console.log(data);
-		});
 		for (var data in result) {
 			if (result[data].currentstatus === 'Recovered') {
 				recoveredCount = recoveredCount + 1;

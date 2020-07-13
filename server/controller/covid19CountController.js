@@ -23,6 +23,7 @@ class Covid19CountController {
 				.getAllCount()
 				// eslint-disable-next-line no-unused-vars
 				.then(data => {
+					console.log('data============>', data);
 					redisService.get('COVID19_COUNT', covid19Count => {
 						result.success = true;
 						result.message = 'Successfully got data';
@@ -32,6 +33,7 @@ class Covid19CountController {
 					});
 				})
 				.catch(error => {
+					console.log('error-------------->', error);
 					result.success = false;
 					result.message = 'Error while fetching data';
 					result.error = error;

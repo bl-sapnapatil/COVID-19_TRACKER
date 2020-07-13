@@ -8,9 +8,9 @@
 /**
  * @description Dependencies are installed for execution.
  */
-const mongodb = require('mongodb');
+const MongoClient = require('mongodb').MongoClient;
 
-const MongoClient = mongodb.MongoClient;
+// const MongoClient = mongodb.MongoClient;
 require('dotenv').config();
 const dbUrl = process.env.MONGO_DB_URL;
 const dbName = process.env.DB_NAME;
@@ -31,11 +31,12 @@ class MongoServices {
 			.find()
 			.limit(100)
 			.toArray();
-		console.log('result---------->', result.length);
+		console.log('result---------->', result);
 		return result;
 	}
 
 	async getSearch(request) {
+		console.log('in search', request);
 		const result = await this.client
 			.db(dbName)
 			.collection(collectionName)
@@ -51,6 +52,7 @@ class MongoServices {
 				],
 			})
 			.toArray();
+		console.log('result', result);
 		return result;
 	}
 }
