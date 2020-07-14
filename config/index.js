@@ -13,8 +13,9 @@ const path = require('path');
 const aws = require('aws-sdk');
 const redis = require('redis');
 const fse = require('fs-extra');
-// const clc = require('cli-color');
+//const clc = require('cli-color');
 const winston = require('winston');
+//const dateFormat = require('dateformat');
 const expressWinston = require('express-winston');
 
 let config;

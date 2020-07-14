@@ -12,32 +12,33 @@ const MongoClient = require('mongodb').MongoClient;
 
 // const MongoClient = mongodb.MongoClient;
 require('dotenv').config();
-const dbUrl = process.env.MONGO_DB_URL;
+const dbUrl = process.env.COVID19_DB_URL;
 const dbName = process.env.DB_NAME;
 const collectionName = process.env.COLLECTION_NAME;
 
 class MongoServices {
-	constructor() {
-		this.client = MongoClient.connect(dbUrl, {
+	async getData() {
+		const client = await MongoClient.connect(dbUrl, {
 			useNewUrlParser: true,
 			useUnifiedTopology: true,
 		});
-	}
-	async getData() {
-		console.log('in getData');
-		const result = await this.client
+		const result = await client
 			.db(dbName)
 			.collection(collectionName)
 			.find()
-			.limit(100)
 			.toArray();
+		console.log('result');
 		console.log('result---------->', result);
 		return result;
 	}
 
 	async getSearch(request) {
-		console.log('in search', request);
-		const result = await this.client
+		console.log('in search', request.value);
+		const client = await MongoClient.connect(dbUrl, {
+			useNewUrlParser: true,
+			useUnifiedTopology: true,
+		});
+		const result = await client
 			.db(dbName)
 			.collection(collectionName)
 			.find({
@@ -52,7 +53,7 @@ class MongoServices {
 				],
 			})
 			.toArray();
-		console.log('result', result);
+		console.log('result', result.length);
 		return result;
 	}
 }

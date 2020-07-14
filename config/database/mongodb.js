@@ -18,12 +18,33 @@ mongoose.Promise = global.Promise;
  * @description Connecting the mongodb
  */
 const connect = config => {
+	if (config.database.mongodb.dbFullURL) {
+		if (config.database.mongodb.username && config.database.mongodb.password && config.database.mongodb.name) {
+			config.database.mongodb.dbFullURL = config.database.mongodb.dbFullURL.replace(
+				'<host>',
+				config.database.mongodb.host
+			);
+			config.database.mongodb.dbFullURL = config.database.mongodb.dbFullURL.replace(
+				'<username>',
+				config.database.mongodb.username
+			);
+			config.database.mongodb.dbFullURL = config.database.mongodb.dbFullURL.replace(
+				'<password>',
+				config.database.mongodb.password
+			);
+			config.database.mongodb.dbFullURL = config.database.mongodb.dbFullURL.replace(
+				'<dbname>',
+				config.database.mongodb.name
+			);
+		}
+	}
 	mongoose.connect(
-		config.database.mongodb.dbURI,
+		config.database.mongodb.dbFullURL,
 		{
+			// dbName: config.database.mongodb.name,
 			useNewUrlParser: true,
 			useUnifiedTopology: true,
-			serverSelectionTimeoutMS: 5000, // Keep trying to send operations for 5 seconds
+			serverSelectionTimeoutMS: 10000, // Keep trying to send operations for 5 seconds
 			socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
 			// poolSize: 10  // other options can go here
 		},
@@ -87,7 +108,6 @@ const gracefulExit = () => {
 
 // If the Node process ends, close the Mongoose connection
 process.on('SIGINT', gracefulExit); // .on('SIGTERM', gracefulExit);
-
 module.exports = {
 	init: config_data => {
 		config = config_data;

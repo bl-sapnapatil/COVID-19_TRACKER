@@ -141,7 +141,7 @@ const checkSystemErrors = err =>
 if (!config.isProduction) {
 	app.use((err, req, res) => {
 		logger.trace(err);
-		logger.error(`Error: ${JSON.stringify(err)}, \n\n Request: ${req}`);
+		logger.error(`Error: ${err}, \n\n Request: ${req}`);
 		const error = {
 			message: 'Something bad happened. Please contact system administrator or try again',
 			status: false,
@@ -152,8 +152,8 @@ if (!config.isProduction) {
 				error.message = err.message;
 			}
 		}
-		// res.status(400);
-		res.status(400).send(error);
+		res.status(400);
+		res.send(error);
 	});
 } else {
 	/**
@@ -209,4 +209,4 @@ app.listen(config.port, () => {
  * @description Export the express app instance
  */
 
-module.exports.app = app;
+module.exports = app;

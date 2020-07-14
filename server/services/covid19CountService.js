@@ -1,6 +1,6 @@
 /*******************************************************************************************
  * @Purpose   : Get Count of active, recovered and deceased
- * @file      : stateService.js
+ * @file      : covid19CountService.js
  * @overview  : Count of active, recovered and deceased patients
  * @author    : SINDOOJA GAJAM
  * @since     : 08/07/2020
@@ -16,6 +16,7 @@ class Covid19CountService {
 			recoveredCount = 0,
 			deceasedCount = 0,
 			count = {};
+		console.log('Calling getData');
 		// eslint-disable-next-line prettier/prettier
 		let result = await mongooservice.getData();
 		console.log('in service', result);
@@ -54,6 +55,6 @@ class Covid19CountService {
 		});
 	}
 }
-let covidCount = new Covid19CountService();
-covidCount.countSchedule();
+// let covidCount = new Covid19CountService();
+// covidCount.countSchedule();
 module.exports = new Covid19CountService();

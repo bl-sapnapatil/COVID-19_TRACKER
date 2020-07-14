@@ -6,8 +6,7 @@
   "scripts": {
     "start": "nodemon index.js",
     "format": "prettier --write './server/*.js' './index.js' './config/*.js'",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "cd public/superadmin && bower install --allow-root",
+    "test": "mocha",
     "lint:fix": "./node_modules/eslint/bin/eslint.js . --fix",
     "lint": "./node_modules/eslint/bin/eslint.js -c .eslintrc.js --max-warnings=0 --report-unused-disable-directives  --ext .js . && echo '✔  Your .js files look good.'",
     "dev-test": "mocha && npm run start",
@@ -38,6 +37,7 @@
     "mongodb": "^3.5.9",
     "mongoose": "^5.9.21",
     "node-cron": "^2.0.3",
+    "node-fetch": "^2.6.0",
     "nodemailer": "^6.4.10",
     "nodemailer-smtp-transport": "^2.7.4",
     "nodemon": "^2.0.4",
@@ -56,14 +56,17 @@
     "unsafe-perm": true
   },
   "devDependencies": {
-    "typescript": "^3.9.6",
     "babel-eslint": "^10.1.0",
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
     "eslint": "^7.3.1",
     "eslint-config-airbnb": "^18.2.0",
     "eslint-config-strongloop": "^2.1.0",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.20.3",
-    "prettier": "^1.18.2"
+    "mocha": "^8.0.1",
+    "prettier": "^1.18.2",
+    "typescript": "^3.9.6"
   }
 }

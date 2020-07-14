@@ -16,6 +16,7 @@ class searchController {
 
 	async getSearchData(req, res) {
 		try {
+			let response = {};
 			if (req.body.value === undefined) throw 'Request body cannot be undefined';
 			if (req.body.value === null) throw 'Request body cannot be null';
 			if (req.body.value.length === 0) throw 'Request body cannot be empty';
@@ -24,14 +25,26 @@ class searchController {
 			};
 			await service
 				.getSearch(request)
-				.then(data => {
-					res.status(200).send(data);
+				.then(result => {
+					response.success = true;
+					response.data = result;
+					response.message = 'Successfully got data';
+					return res.status(200).send(response);
 				})
 				.catch(error => {
-					res.status(400).send(error);
+					console.error('error---------------->', error);
+					response.success = false;
+					response.error = error;
+					response.message = 'Error while getting data';
+					return res.status(400).send(response);
 				});
 		} catch (error) {
-			res.status(422).send(error);
+			let response = {
+				success: false,
+				error: error,
+				message: 'Error while getting data',
+			};
+			return res.status(422).send(response);
 		}
 	}
 }
