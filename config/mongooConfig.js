@@ -27,9 +27,25 @@ class MongoServices {
 			.db(dbName)
 			.collection(collectionName)
 			.find()
+			.limit(100)
 			.toArray();
 
 		await client.close();
+		return result;
+	}
+	async getSortDataWise(req) {
+		let date = req.query;
+		const client = await MongoClient.connect(dbUrl, {
+			useNewUrlParser: true,
+			useUnifiedTopology: true,
+		});
+		const result = await client
+			.db(dbName)
+			.collection(collectionName)
+			.find({ dateannounced: { $gte: '30/01/2020', $lte: '31/02/2020' } })
+			.toArray();
+		await client.close();
+		console.log('mongo', result);
 		return result;
 	}
 }

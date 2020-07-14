@@ -36,6 +36,24 @@ class StateController {
 			});
 		}
 	}
+	async getDateWiseStats(req, res) {
+		try {
+			await service
+				.getDateWiseStats(req)
+				.then(data => {
+					loggers.info('data', data);
+					res.status(200).send(data);
+				})
+				.catch(err => {
+					loggers.error('error', err);
+					res.status(422).send(err);
+				});
+		} catch (error) {
+			res.status(422).send({
+				message: 'Operation failed',
+			});
+		}
+	}
 }
 
 module.exports = new StateController();

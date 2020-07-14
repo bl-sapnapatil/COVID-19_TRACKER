@@ -85,5 +85,18 @@ class StateService {
 				});
 		});
 	}
+	getDateWiseStats(req) {
+		return new Promise((resolve, reject) => {
+			mongooservice
+				.getSortDataWise(req)
+				.then(result => {
+					//console.log('serviice', result);
+					resolve(result);
+				})
+				.catch(err => {
+					reject(err);
+				});
+		});
+	}
 }
 module.exports = new StateService();
