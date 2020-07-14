@@ -37,7 +37,9 @@ router.get('/', (req, res) =>
 /**
  *@description The particular method is called depending on the route.
  */
-router.get('/getAllStateData', cacheController.cacheStates, controller.getAllStateData);
+// router.get('/getAllStateData', cacheController.cacheStates, controller.getAllStateData);
+router.get('/getAllStateData', controller.getAllStateData);
+
 
 /**
  * @description Export Module

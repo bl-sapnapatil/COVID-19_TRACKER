@@ -6,7 +6,7 @@
  * @since     : 06/07/2020
  *******************************************************************************************/
 
-const mongooservice = require('../../config/mongooConfig');
+const mongooservice = require('../app/models/schema');
 const redisService = require('../services/cacheService');
 const { COVID19_STATE_STATS_CACHEKEY } = require('../../redisKey');
 const config = require('../../config').get();
