@@ -1,261 +1,265 @@
-[
-    {
-        "stateName": "Kerala",
-        "recover": 443,
-        "active": 1704,
-        "death": 24,
-        "total": 2171
-    },
-    {
-        "stateName": "Delhi",
-        "recover": 56,
-        "active": 4968,
-        "death": 51,
-        "total": 5075
-    },
-    {
-        "stateName": "Telangana",
-        "recover": 102,
-        "active": 2185,
-        "death": 50,
-        "total": 27
-    },
-    {
-        "stateName": "Rajasthan",
-        "recover": 767,
-        "active": 5206,
-        "death": 224,
-        "total": 6197
-    },
-    {
-        "stateName": "Haryana",
-        "recover": 387,
-        "active": 1246,
-        "death": 70,
-        "total": 1703
-    },
-    {
-        "stateName": "Uttar Pradesh",
-        "recover": 1593,
-        "active": 5375,
-        "death": 337,
-        "total": 7305
-    },
-    {
-        "stateName": "Ladakh",
-        "recover": 21,
-        "active": 82,
-        "death": 1,
-        "total": 104
-    },
-    {
-        "stateName": "Tamil Nadu",
-        "recover": 1003,
-        "active": 24491,
-        "death": 400,
-        "total": 25894
-    },
-    {
-        "stateName": "Jammu and Kashmir",
-        "recover": 389,
-        "active": 1549,
-        "death": 66,
-        "total": 2004
-    },
-    {
-        "stateName": "Karnataka",
-        "recover": 5269,
-        "active": 8540,
-        "death": 130,
-        "total": 13939
-    },
-    {
-        "stateName": "Maharashtra",
-        "recover": 1030,
-        "active": 13883,
-        "death": 527,
-        "total": 15440
-    },
-    {
-        "stateName": "Punjab",
-        "recover": 287,
-        "active": 1207,
-        "death": 72,
-        "total": 1566
-    },
-    {
-        "stateName": "Andhra Pradesh",
-        "recover": 404,
-        "active": 2744,
-        "death": 63,
-        "total": 3211
-    },
-    {
-        "stateName": "Uttarakhand",
-        "recover": 177,
-        "active": 575,
-        "death": 36,
-        "total": 788
-    },
-    {
-        "stateName": "Odisha",
-        "recover": 451,
-        "active": 1277,
-        "death": 16,
-        "total": 1744
-    },
-    {
-        "stateName": "Puducherry",
-        "recover": 34,
-        "active": 69,
-        "death": 7,
-        "total": 110
-    },
-    {
-        "stateName": "West Bengal",
-        "recover": 528,
-        "active": 1652,
-        "death": 176,
-        "total": 2356
-    },
-    {
-        "stateName": "Chandigarh",
-        "recover": 71,
-        "active": 361,
-        "death": 6,
-        "total": 438
-    },
-    {
-        "stateName": "Chhattisgarh",
-        "recover": 282,
-        "active": 489,
-        "death": 12,
-        "total": 783
-    },
-    {
-        "stateName": "Gujarat",
-        "recover": 754,
-        "active": 6011,
-        "death": 635,
-        "total": 7400
-    },
-    {
-        "stateName": "Himachal Pradesh",
-        "recover": 156,
-        "active": 300,
-        "death": 9,
-        "total": 465
-    },
-    {
-        "stateName": "Madhya Pradesh",
-        "recover": 757,
-        "active": 4529,
-        "death": 247,
-        "total": 5533
-    },
-    {
-        "stateName": "Bihar",
-        "recover": 725,
-        "active": 7372,
-        "death": 49,
-        "total": 8146
-    },
-    {
-        "stateName": "Manipur",
-        "recover": 63,
-        "active": 202,
-        "death": 0,
-        "total": 265
-    },
-    {
-        "stateName": "Mizoram",
-        "recover": 3,
-        "active": 43,
-        "death": 0,
-        "total": 46
-    },
-    {
-        "stateName": "Goa",
-        "recover": 25,
-        "active": 101,
-        "death": 0,
-        "total": 126
-    },
-    {
-        "stateName": "Andaman and Nicobar Islands",
-        "recover": 29,
-        "active": 37,
-        "death": 0,
-        "total": 66
-    },
-    {
-        "stateName": "Jharkhand",
-        "recover": 210,
-        "active": 600,
-        "death": 12,
-        "total": 822
-    },
-    {
-        "stateName": "Assam",
-        "recover": 174,
-        "active": 715,
-        "death": 10,
-        "total": 899
-    },
-    {
-        "stateName": "Arunachal Pradesh",
-        "recover": 10,
-        "active": 78,
-        "death": 0,
-        "total": 88
-    },
-    {
-        "stateName": "",
-        "recover": 7,
-        "active": 3,
-        "death": 0,
-        "total": 10
-    },
-    {
-        "stateName": "Tripura",
-        "recover": 81,
-        "active": 186,
-        "death": 1,
-        "total": 268
-    },
-    {
-        "stateName": "Meghalaya",
-        "recover": 16,
-        "active": 48,
-        "death": 0,
-        "total": 64
-    },
-    {
-        "stateName": "Dadra and Nagar Haveli and Daman and Diu",
-        "recover": 5,
-        "active": 46,
-        "death": 0,
-        "total": 51
-    },
-    {
-        "stateName": "State Unassigned",
-        "recover": 0,
-        "active": 34,
-        "death": 0,
-        "total": 34
-    },
-    {
-        "stateName": "Sikkim",
-        "recover": 14,
-        "active": 31,
-        "death": 0,
-        "total": 45
-    },
-    {
-        "stateName": "Nagaland",
-        "recover": 20,
-        "active": 91,
-        "death": 0,
-        "total": 111
-    }
-]
+{
+    "sucess": "true",
+    "message": "success",
+    "stateData": [
+        {
+            "stateName": "Kerala",
+            "recover": 443,
+            "active": 1704,
+            "death": 24,
+            "total": 2171
+        },
+        {
+            "stateName": "Delhi",
+            "recover": 56,
+            "active": 4968,
+            "death": 51,
+            "total": 5075
+        },
+        {
+            "stateName": "Telangana",
+            "recover": 102,
+            "active": 2185,
+            "death": 50,
+            "total": 2337
+        },
+        {
+            "stateName": "Rajasthan",
+            "recover": 767,
+            "active": 5206,
+            "death": 224,
+            "total": 6197
+        },
+        {
+            "stateName": "Haryana",
+            "recover": 387,
+            "active": 1246,
+            "death": 70,
+            "total": 1703
+        },
+        {
+            "stateName": "Uttar Pradesh",
+            "recover": 1593,
+            "active": 5375,
+            "death": 337,
+            "total": 7305
+        },
+        {
+            "stateName": "Ladakh",
+            "recover": 21,
+            "active": 82,
+            "death": 1,
+            "total": 104
+        },
+        {
+            "stateName": "Tamil Nadu",
+            "recover": 1003,
+            "active": 24491,
+            "death": 400,
+            "total": 25894
+        },
+        {
+            "stateName": "Jammu and Kashmir",
+            "recover": 389,
+            "active": 1549,
+            "death": 66,
+            "total": 2004
+        },
+        {
+            "stateName": "Karnataka",
+            "recover": 5269,
+            "active": 8540,
+            "death": 130,
+            "total": 13939
+        },
+        {
+            "stateName": "Maharashtra",
+            "recover": 1030,
+            "active": 13883,
+            "death": 527,
+            "total": 15440
+        },
+        {
+            "stateName": "Punjab",
+            "recover": 287,
+            "active": 1207,
+            "death": 72,
+            "total": 1566
+        },
+        {
+            "stateName": "Andhra Pradesh",
+            "recover": 404,
+            "active": 2744,
+            "death": 63,
+            "total": 3211
+        },
+        {
+            "stateName": "Uttarakhand",
+            "recover": 177,
+            "active": 575,
+            "death": 36,
+            "total": 788
+        },
+        {
+            "stateName": "Odisha",
+            "recover": 451,
+            "active": 1277,
+            "death": 16,
+            "total": 1744
+        },
+        {
+            "stateName": "Puducherry",
+            "recover": 34,
+            "active": 69,
+            "death": 7,
+            "total": 110
+        },
+        {
+            "stateName": "West Bengal",
+            "recover": 528,
+            "active": 1652,
+            "death": 176,
+            "total": 2356
+        },
+        {
+            "stateName": "Chandigarh",
+            "recover": 71,
+            "active": 361,
+            "death": 6,
+            "total": 438
+        },
+        {
+            "stateName": "Chhattisgarh",
+            "recover": 282,
+            "active": 489,
+            "death": 12,
+            "total": 783
+        },
+        {
+            "stateName": "Gujarat",
+            "recover": 754,
+            "active": 6011,
+            "death": 635,
+            "total": 7400
+        },
+        {
+            "stateName": "Himachal Pradesh",
+            "recover": 156,
+            "active": 300,
+            "death": 9,
+            "total": 465
+        },
+        {
+            "stateName": "Madhya Pradesh",
+            "recover": 757,
+            "active": 4529,
+            "death": 247,
+            "total": 5533
+        },
+        {
+            "stateName": "Bihar",
+            "recover": 725,
+            "active": 7372,
+            "death": 49,
+            "total": 8146
+        },
+        {
+            "stateName": "Manipur",
+            "recover": 63,
+            "active": 202,
+            "death": 0,
+            "total": 265
+        },
+        {
+            "stateName": "Mizoram",
+            "recover": 3,
+            "active": 43,
+            "death": 0,
+            "total": 46
+        },
+        {
+            "stateName": "Goa",
+            "recover": 25,
+            "active": 101,
+            "death": 0,
+            "total": 126
+        },
+        {
+            "stateName": "Andaman and Nicobar Islands",
+            "recover": 29,
+            "active": 37,
+            "death": 0,
+            "total": 66
+        },
+        {
+            "stateName": "Jharkhand",
+            "recover": 210,
+            "active": 600,
+            "death": 12,
+            "total": 822
+        },
+        {
+            "stateName": "Assam",
+            "recover": 174,
+            "active": 715,
+            "death": 10,
+            "total": 899
+        },
+        {
+            "stateName": "Arunachal Pradesh",
+            "recover": 10,
+            "active": 78,
+            "death": 0,
+            "total": 88
+        },
+        {
+            "stateName": "",
+            "recover": 7,
+            "active": 3,
+            "death": 0,
+            "total": 10
+        },
+        {
+            "stateName": "Tripura",
+            "recover": 81,
+            "active": 186,
+            "death": 1,
+            "total": 268
+        },
+        {
+            "stateName": "Meghalaya",
+            "recover": 16,
+            "active": 48,
+            "death": 0,
+            "total": 64
+        },
+        {
+            "stateName": "Dadra and Nagar Haveli and Daman and Diu",
+            "recover": 5,
+            "active": 46,
+            "death": 0,
+            "total": 51
+        },
+        {
+            "stateName": "State Unassigned",
+            "recover": 0,
+            "active": 34,
+            "death": 0,
+            "total": 34
+        },
+        {
+            "stateName": "Sikkim",
+            "recover": 14,
+            "active": 31,
+            "death": 0,
+            "total": 45
+        },
+        {
+            "stateName": "Nagaland",
+            "recover": 20,
+            "active": 91,
+            "death": 0,
+            "total": 111
+        }
+    ]
+}

@@ -6,7 +6,7 @@
  * @since     : 06/07/2020
  *******************************************************************************************/
 
-const mongooservice = require('../app/models/schema');
+const covidModel = require('../app/models/schema');
 const redisService = require('../services/cacheService');
 const { COVID19_STATE_STATS_CACHEKEY } = require('../../redisKey');
 const config = require('../../config').get();
@@ -22,7 +22,7 @@ class StateService {
 	 */
 	getStateData() {
 		return new Promise((resolve, reject) => {
-			mongooservice
+			covidModel
 				.getData()
 				.then(result => {
 					let response = this.getStateStats(result);
@@ -49,7 +49,7 @@ class StateService {
 
 		return new Promise((resolve, reject) => {
 			let query = { statuschangedate: { $gte: startDate, $lte: endDate } };
-			mongooservice
+			covidModel
 				.getDateWiseData(query)
 				.then(result => {
 					let response = this.getStateStats(result);

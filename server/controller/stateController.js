@@ -23,7 +23,6 @@ class StateController {
 			await service
 				.getStateData()
 				.then(data => {
-					loggers.info('data', data);
 					res.status(200).send(data);
 				})
 				.catch(err => {
@@ -43,7 +42,6 @@ class StateController {
 			await service
 				.getDateStateStats(startDate)
 				.then(data => {
-					loggers.info('data', data);
 					res.status(200).send(data);
 				})
 				.catch(err => {

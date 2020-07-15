@@ -12,7 +12,6 @@ var chai = require('chai'),
 chai.use(chaiHttp);
 var app = require('../index');
 var expect = require('chai').expect;
-var stateData = require('../stateData.json');
 chai.should();
 
 describe('Get Covid-19 State Wise Data', () => {
@@ -22,15 +21,6 @@ describe('Get Covid-19 State Wise Data', () => {
 			.end((err, res) => {
 				res.should.have.status(200);
 				expect(res.body.message).to.equals('Welcome to the COVID19 Tracker API');
-			});
-	});
-
-	it('given route when proper should return success message', () => {
-		chai.request(app)
-			.get('/api/getAllStateData')
-			.end((err, res) => {
-				res.should.have.status(200);
-				res.body.should.be.a('array');
 			});
 	});
 
@@ -49,27 +39,37 @@ describe('Get Covid-19 State Wise Data', () => {
 			.set('Content-Type', 'application/json');
 		expect(response).to.have.status(500);
 	});
+});
 
-	it('given route when improper should return error message', () => {
+describe('Get Covid-19 Date wise State Data', () => {
+	it('given route when proper should return success message', done => {
 		chai.request(app)
-			.get('/api/getAllData')
-			.end((err, res) => {
-				res.should.have.status(500);
-			});
-	});
-
-	it('given route when proper check right property in response body should return success message', () => {
-		chai.request(app)
-			.get('/api/getAllStateData')
-			.send(stateData)
+			.get('/api/getDateWiseStats?startDate=14/07/2020')
+			.set('Content-Type', 'application/json')
 			.end((err, res) => {
 				res.should.have.status(200);
-				res.body.should.be.a('array');
-				res.body[0].should.have.property('stateName');
-				res.body[0].should.have.property('recover');
-				res.body[0].should.have.property('active');
-				res.body[0].should.have.property('death');
-				res.body[0].should.have.property('total');
 			});
+		done();
+	});
+	it('given route url parameter value can not empty', done => {
+		chai.request(app)
+			.get('/api/getDateWiseStats?startDate')
+			.set('Content-Type', 'application/json')
+			.end((err, res) => {
+				res.should.have.status(422);
+				res.body.should.be.a('object');
+				res.body.should.have.property('message');
+			});
+		done();
+	});
+	it('given route improper return error massage', done => {
+		chai.request(app)
+			.get('/api/getDate')
+			.set('Content-Type', 'application/json')
+			.end((err, res) => {
+				res.should.have.status(500);
+				res.body.should.be.a('object');
+			});
+		done();
 	});
 });
