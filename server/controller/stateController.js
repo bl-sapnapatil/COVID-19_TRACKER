@@ -14,7 +14,7 @@ const { loggers } = config;
 
 class StateController {
 	/**
-	 * register controller to pass request to register service
+	 * state controller to pass request to state service
 	 * @param {httpRequest} req
 	 * @param {httpResponse} res
 	 */
@@ -36,10 +36,12 @@ class StateController {
 			});
 		}
 	}
+
 	async getDateWiseStats(req, res) {
 		try {
+			var startDate = req.query.startDate;
 			await service
-				.getDateWiseStats(req)
+				.getDateStateStats(startDate)
 				.then(data => {
 					loggers.info('data', data);
 					res.status(200).send(data);
