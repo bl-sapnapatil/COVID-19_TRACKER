@@ -1,0 +1,126 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "description": "Covid - 19 India Data",
+      "version": "1.0.0",
+      "title": "Covid-19 Tracker",
+      "contact": {
+        "email": "pravin1desh@gmail.com"
+      }
+    },
+    "host": "localhost:3030",
+    "basePath": "/api",
+    "tags": [
+      {
+        "name": "State",
+        "description": "Operations about State Stats Tracker"
+      }
+    ],
+    "schemes": [
+      "http",
+      "https"
+    ],
+    "paths": {
+      "/getAllStateData": {
+        "get": {
+          "tags": [
+            "state"
+          ],
+          "summary": "Get State count",
+          "description": "",
+          "operationId": "getAllStateData",
+          "produces": [
+            "application/json",
+            "application/xml"
+          ],
+          "responses": {
+            "200": {
+              "description": "successful operation",
+              "schema": {
+                "$ref": "#/definitions/State"
+              }
+            },
+            "400": {
+              "description": "Invalid supplied"
+            },
+            "404": {
+              "description": "not found"
+            }
+          }
+        }
+      },
+      "/getDateWiseStats": {
+        "get": {
+          "tags": [
+            "state"
+          ],
+          "summary": "Date wise count",
+          "description": "",
+          "operationId": "getDateWiseStats",
+          "produces": [
+            "application/json",
+            "application/xml"
+          ],
+          "parameters": [
+            {
+              "name": "startDate",
+              "in": "query",
+              "description": "dd/mm/yyyy",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "successful operation",
+              "schema": {
+                "$ref": "#/definitions/State"
+              }
+            },
+            "400": {
+              "description": "Invalid date supplied"
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "State": {
+        "type": "object",
+        "properties": {
+          "sucess": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "stateData": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/StateCount"
+            }
+          }
+        }
+      },
+      "StateCount": {
+        "type": "object",
+        "properties": {
+          "stateName": {
+            "type": "string"
+          },
+          "recover": {
+            "type": "number"
+          },
+          "active": {
+            "type": "number"
+          },
+          "death": {
+            "type": "number"
+          },
+          "total": {
+            "type": "number"
+          }
+        }
+      }
+    }
+  }

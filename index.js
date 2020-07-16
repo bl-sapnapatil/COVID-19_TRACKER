@@ -42,6 +42,12 @@ const session = require('express-session');
 const compression = require('compression');
 
 /**
+ * @description Initialize the swagger
+ */
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocs = require('./server/swagger/swagger.json');
+
+/**
  * @description Initialize the express
  */
 const app = express();
@@ -116,6 +122,11 @@ if (!config.isProduction) {
 	 */
 	//require('./server/lib')(app, config.tanents);
 }
+
+/**
+ * @description Enable the Swagger
+ */
+app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 /**
  * @description API Access Gatway
