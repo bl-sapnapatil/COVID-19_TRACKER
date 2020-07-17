@@ -6,75 +6,84 @@
 //  * @since     : 06/07/2020
 //  *******************************************************************************************/
 
-// const mongooservice = require('../../config/mongooConfig');
-// const redis = require('../services/cacheService');
-// const { COVID19_STATE_STATS_CACHEKEY } = require('../../redisKey');
+const mongooservice = require('../app/models/schema');
+const redisService = require('../services/cacheService');
+const { COVID19_STATE_STATS_CACHEKEY } = require('../../redisKey');
+const config = require('../../config').get();
+/**
+ * @description Winston logger derived from the config
+ */
+const { loggers } = config;
 
-// class StateService {
-// 	/**
-// 	 * @description State service async returns a promise which is either resolved/rejected.
-// 	 *
-// 	 */
-// 	async getStateData() {
-// 		let casesRecord = {};
-
-// 		let activeCount = 0;
-// 		let recoveredCount = 0;
-// 		let deathCount = 0;
-// 		let statesArray = [];
-// 		let finalRecord = [];
-// 		let completeData = [];
-
-// 		let result = await mongooservice.getData();
-
-// 		// get two field into result array.
-// 		completeData = result.map(({ detectedstate, currentstatus }) => ({
-// 			detectedstate,
-// 			currentstatus,
-// 		}));
-
-// 		// using set get unique state name
-// 		statesArray = [...new Set(completeData.map(data => data.detectedstate))];
-
-// 		for (let state in statesArray) {
-// 			for (let data in completeData) {
-// 				if (statesArray[state] == completeData[data].detectedstate) {
-// 					// if state in statesArray matches with an completedData state then check
-// 					// completeData of currentStatus and increment count.
-// 					if (completeData[data].currentstatus == 'Recovered') {
-// 						recoveredCount++;
-// 					}
-// 					if (completeData[data].currentstatus == 'Hospitalized') {
-// 						activeCount++;
-// 					}
-// 					if (completeData[data].currentstatus == 'Deceased') {
-// 						deathCount++;
-// 					}
-// 				}
-// 			}
-// 			casesRecord = {
-// 				stateName: statesArray[state],
-// 				recover: recoveredCount,
-// 				active: activeCount,
-// 				death: deathCount,
-// 				total: recoveredCount + activeCount + deathCount,
-// 			};
-// 			finalRecord.push(casesRecord);
-
-// 			activeCount = 0;
-// 			recoveredCount = 0;
-// 			deathCount = 0;
-// 		}
-// 		redis.set(COVID19_STATE_STATS_CACHEKEY, JSON.stringify(finalRecord), res => {
-// 			return res.json({ sucess: 'true', message: 'success', data: finalRecord });
-// 		});
-// 		let response = {
-// 			sucess: 'true',
-// 			message: 'success',
-// 			stateData: finalRecord,
-// 		};
-// 		return { response };
-// 	}
-// }
-
-// module.exports = new StateService();
+class StateService {
+	/**
+	 * @description State service async returns a promise which is either resolved/rejected.
+	 * @description map:-get two field into result array.
+	 * @description set:-using set get unique state name
+	 * @description if :- if state in statesArray matches with an completedData state then check
+	 * 						completeData of currentStatus and increment count.
+	 */
+	getStateData() {
+		return new Promise((resolve, reject) => {
+			let casesRecord = {};
+			let activeCount = 0;
+			let recoveredCount = 0;
+			let deathCount = 0;
+			let statesArray = [];
+			let finalRecord = [];
+			let completeData = [];
+			mongooservice
+				.getData()
+				.then(result => {
+					completeData = result.map(({ detectedstate, currentstatus }) => ({
+						detectedstate,
+						currentstatus,
+					}));
+					statesArray = [...new Set(completeData.map(data => data.detectedstate))];
+					for (let state in statesArray) {
+						for (let data in completeData) {
+							if (statesArray[state] == completeData[data].detectedstate) {
+								if (completeData[data].currentstatus == 'Recovered') {
+									recoveredCount++;
+								}
+								if (completeData[data].currentstatus == 'Hospitalized') {
+									activeCount++;
+								}
+								if (completeData[data].currentstatus == 'Deceased') {
+									deathCount++;
+								}
+							}
+						}
+						casesRecord = {
+							stateName: statesArray[state],
+							recover: recoveredCount,
+							active: activeCount,
+							death: deathCount,
+							total: recoveredCount + activeCount + deathCount,
+						};
+						finalRecord.push(casesRecord);
+						activeCount = 0;
+						recoveredCount = 0;
+						deathCount = 0;
+					}
+					let response = {
+						sucess: 'true',
+						message: 'success',
+						stateData: finalRecord,
+					};
+					redisService.set(COVID19_STATE_STATS_CACHEKEY, JSON.stringify(response), (error, result) => {
+						if (error) {
+							loggers.info('error', error);
+						} else {
+							loggers.info('Success get all state wise data', result);
+						}
+					});
+					resolve(response);
+				})
+				.catch(err => {
+					reject(err);
+				});
+		});
+	}
+}
+module.exports = new StateService();

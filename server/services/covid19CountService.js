@@ -6,46 +6,89 @@
  * @since     : 08/07/2020
  *******************************************************************************************/
 const cron = require('node-cron');
-const mongooservice = require('../../config/mongooConfig');
+const models = require('../app/models/schema');
 const redisService = require('./redisService');
-// const mongooservice = require('../api/api');
+const config = require('../../config').get();
+const { Client } = require('@elastic/elasticsearch');
+const client = new Client({
+	node: 'http://localhost:9200',
+	maxRetries: 5,
+	requestTimeout: 60000
+});
+const { logger } = config;
 
 class Covid19CountService {
 	async getAllCount() {
 		let activeCount = 0,
 			recoveredCount = 0,
 			deceasedCount = 0,
-			count = {};
+			count = {},
+			covid19_data = [];
 		console.log('Calling getData');
 		// eslint-disable-next-line prettier/prettier
-		let result = await mongooservice.getData();
-		console.log('in service', result);
-		for (var data in result) {
-			if (result[data].currentstatus === 'Recovered') {
+		let result = await models.getData();
+		await result.map(element => {
+			covid19_data.push(element);
+		});
+		client.ping(
+			{},
+			{
+				// ping usually has a 3000ms timeout
+				requestTimeout: 20000,
+				// undocumented params are appended to the query string
+				hello: 'elasticsearch!'
+			},
+			function(error, response) {
+				if (error) {
+					logger.error('Cannot connect to Elasticsearch.', error);
+				} else {
+					logger.info('Connection to Elasticsearch was successful!');
+				}
+			}
+		);
+		const body = await covid19_data.flatMap((doc, index) => [
+			{ index: { _index: 'covid19_data', _id: doc._id } },
+			doc
+		]);
+
+		client.bulk({ body: body, refresh: true }, function(error, response) {
+			if (error) {
+				logger.error(error);
+			} else {
+				logger.info(response);
+			}
+		});
+		let covid19Data = JSON.parse(JSON.stringify(covid19_data));
+		covid19Data.forEach(element => {
+			if (element.currentstatus === 'Recovered') {
 				recoveredCount = recoveredCount + 1;
 			}
-			if (result[data].currentstatus === 'Hospitalized') {
+			if (element.currentstatus === 'Hospitalized') {
 				activeCount = activeCount + 1;
 			}
-			if (result[data].currentstatus === 'Deceased') {
+			if (element.currentstatus === 'Deceased') {
 				deceasedCount = deceasedCount + 1;
 			}
-		}
+		});
+
 		count = {
 			recoveredCount: recoveredCount,
 			activeCount: activeCount,
-			deceasedCount: deceasedCount,
+			deceasedCount: deceasedCount
 		};
-
+		
 		// eslint-disable-next-line no-unused-vars
-		redisService.set('COVID19_COUNT', JSON.stringify(count), response => {
-			console.log('response', response);
-			return {
-				success: true,
-				message: 'success',
-				data: count,
-			};
-		});
+		await redisService.set(
+			'COVID19_COUNT',
+			JSON.stringify(count),
+			response => {
+				return {
+					success: true,
+					message: 'success',
+					data: count
+				};
+			}
+		);
 	}
 
 	countSchedule() {
@@ -54,6 +97,7 @@ class Covid19CountService {
 			this.getAllCount();
 		});
 	}
+
 }
 // let covidCount = new Covid19CountService();
 // covidCount.countSchedule();

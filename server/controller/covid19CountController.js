@@ -8,6 +8,7 @@
 
 const service = require('../services/covid19CountService');
 const redisService = require('../services/redisService');
+const responseObject = require('../constant/static');
 
 class Covid19CountController {
 	/**
@@ -23,19 +24,14 @@ class Covid19CountController {
 				.getAllCount()
 				// eslint-disable-next-line no-unused-vars
 				.then(data => {
-					console.log('data============>', data);
 					redisService.get('COVID19_COUNT', covid19Count => {
-						result.success = true;
-						result.message = 'Successfully got data';
+						result.body = responseObject.successObject;
 						result.data = JSON.parse(covid19Count);
-						console.log('result', result);
 						return res.status(200).send(result);
 					});
 				})
 				.catch(error => {
-					console.log('error-------------->', error);
-					result.success = false;
-					result.message = 'Error while fetching data';
+					result.body = responseObject.errorObject;
 					result.error = error;
 					return res.status(400).send(result);
 				});

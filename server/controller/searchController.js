@@ -6,6 +6,9 @@
  * @since     : 08/07/2020
  *********************************************************************************************************/
 const service = require('../services/searchService');
+const responseObject = require('../constant/static');
+const config = require('../../config').get();
+const { logger } = config;
 
 class searchController {
 	/**
@@ -17,32 +20,35 @@ class searchController {
 	async getSearchData(req, res) {
 		try {
 			let response = {};
-			if (req.body.value === undefined) throw 'Request body cannot be undefined';
+			if (req.body.value === undefined)
+				throw 'Request body cannot be undefined';
 			if (req.body.value === null) throw 'Request body cannot be null';
-			if (req.body.value.length === 0) throw 'Request body cannot be empty';
+			if (req.body.value.length === 0)
+				throw 'Request body cannot be empty';
 			let request = {
-				value: req.body.value,
+				value: req.body.value
 			};
-			await service
-				.getSearch(request)
-				.then(result => {
-					response.success = true;
-					response.data = result;
-					response.message = 'Successfully got data';
-					return res.status(200).send(response);
-				})
-				.catch(error => {
-					console.error('error---------------->', error);
-					response.success = false;
+			await service.getSearch(request, (error, result) => {
+				if (error) {
+					logger.error('error---------------->', error);
+					response.body = responseObject.errorObject;
 					response.error = error;
-					response.message = 'Error while getting data';
 					return res.status(400).send(response);
-				});
+				} else {
+					logger.info(
+						'result ---------------->',
+						JSON.stringify(result)
+					);
+					response.body = responseObject.successObject;
+					response.data = result;
+					return res.status(200).send(response);
+				}
+			});
 		} catch (error) {
 			let response = {
 				success: false,
 				error: error,
-				message: 'Error while getting data',
+				message: 'Error while getting data'
 			};
 			return res.status(422).send(response);
 		}

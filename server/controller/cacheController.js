@@ -1,4 +1,4 @@
-const redis = require('../services/cacheService');
+const redisService = require('../services/cacheService');
 const config = require('../../config').get();
 const { COVID19_STATE_STATS_CACHEKEY } = require('../../redisKey');
 
@@ -12,7 +12,7 @@ class CacheController {
 	 *@description cacheStates API is used for retrieving list of all states wise in cache.
 	 */
 	cacheStates(req, res, next) {
-		redis.get(COVID19_STATE_STATS_CACHEKEY, (err, data) => {
+		redisService.get(COVID19_STATE_STATS_CACHEKEY, (err, data) => {
 			if (err) {
 				res.status(422).send(err);
 			} else {
@@ -20,7 +20,7 @@ class CacheController {
 					loggers.error('Data not found in cache');
 					next();
 				} else {
-					loggers.info('Data found in cache');
+					loggers.info('Data found in cache', data);
 					res.status(200).send(JSON.parse(data));
 				}
 			}

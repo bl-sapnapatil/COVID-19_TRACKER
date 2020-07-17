@@ -7,7 +7,7 @@ let logger;
 
 mongoose.set('debug', (coll, method, query, doc) => {
 	if (!config.isProduction) {
-		console.log('mongodb production', JSON.stringify([coll, method, query, doc], 0, 4));
+		// console.log('mongodb production', JSON.stringify([coll, method, query, doc], 0, 4));
 	}
 });
 

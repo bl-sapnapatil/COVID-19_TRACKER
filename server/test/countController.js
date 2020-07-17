@@ -13,7 +13,6 @@ describe('getAllCount Function', () => {
 			.get('/api/getAllCount')
 			.send()
 			.end((err, res) => {
-				console.log('response.......', res.status);
 				res.should.have.status(200);
 				res.body.should.be.a('Object');
 				res.body.should.have.property('success').eql(true);

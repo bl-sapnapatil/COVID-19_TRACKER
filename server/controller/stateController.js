@@ -6,6 +6,11 @@
  * @since     : 06/07/2020
  *********************************************************************************************************/
 const service = require('../services/stateService');
+const config = require('../../config').get();
+/**
+ * @description Winston logger derived from the config
+ */
+const { loggers } = config;
 
 class StateController {
 	/**
@@ -18,9 +23,11 @@ class StateController {
 			await service
 				.getStateData()
 				.then(data => {
+					loggers.info('data', data);
 					res.status(200).send(data);
 				})
 				.catch(err => {
+					loggers.error('error', err);
 					res.status(422).send(err);
 				});
 		} catch (error) {
