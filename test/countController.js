@@ -1,6 +1,6 @@
 let chai = require('chai');
 let chaiHttp = require('chai-http');
-let server = require('../../index');
+let server = require('../index');
 // eslint-disable-next-line no-unused-vars
 let should = chai.should();
 chai.use(chaiHttp);
@@ -8,15 +8,15 @@ chai.use(chaiHttp);
 // eslint-disable-next-line no-undef
 describe('getAllCount Function', () => {
 	// eslint-disable-next-line no-undef
-	it('Successfully getting data', done => {
-		chai.request(server.app)
+	it('Successfully getting data', (done) => {
+		chai.request(server)
 			.get('/api/getAllCount')
-			.send()
 			.end((err, res) => {
+				console.log('response------->', res.body)
 				res.should.have.status(200);
 				res.body.should.be.a('Object');
-				res.body.should.have.property('success').eql(true);
-				res.body.should.have.property('message').eql('success');
+				res.body.body.should.have.property('success').eql(true);
+				res.body.body.should.have.property('message').eql('Successfully got data');
 				done();
 			});
 	});

@@ -18,7 +18,6 @@ class Covid19CountController {
 	 */
 	async getAllCount(req, res) {
 		try {
-			if (req.body === undefined) throw 'Request body cannot be undefined';
 			let result = {};
 			await service
 				.getAllCount()

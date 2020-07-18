@@ -1,0 +1,247 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "description": "Covid - 19 India Data",
+      "version": "1.0.0",
+      "title": "Covid-19 Tracker"
+    },
+    "host": "localhost:3030",
+    "basePath": "/api",
+    "tags": [
+      {
+        "name": "State",
+        "description": "Operations about State Stats Tracker"
+      },
+      {
+        "name": "Count",
+        "description": "Active, Recovered, Deceased count stats "
+      },
+      {
+          "name": "Search",
+          "description": "Operation to get search value"
+      }
+    ],
+    "schemes": [
+      "http",
+      "https"
+    ],
+    "paths": {
+      "/getAllStateData": {
+        "get": {
+          "tags": [
+            "state"
+          ],
+          "summary": "Get State count",
+          "description": "",
+          "operationId": "getAllStateData",
+          "produces": [
+            "application/json",
+            "application/xml"
+          ],
+          "responses": {
+            "200": {
+              "description": "successful operation",
+              "schema": {
+                "$ref": "#/definitions/State"
+              }
+            },
+            "400": {
+              "description": "Invalid supplied"
+            },
+            "404": {
+              "description": "not found"
+            }
+          }
+        }
+      },
+      "/getDateWiseStats": {
+        "get": {
+          "tags": [
+            "state"
+          ],
+          "summary": "Date wise count",
+          "description": "",
+          "operationId": "getDateWiseStats",
+          "produces": [
+            "application/json",
+            "application/xml"
+          ],
+          "parameters": [
+            {
+              "name": "startDate",
+              "in": "query",
+              "description": "dd/mm/yyyy",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "successful operation",
+              "schema": {
+                "$ref": "#/definitions/State"
+              }
+            },
+            "400": {
+              "description": "Invalid date supplied"
+            }
+          }
+        }
+      },
+      "/getAllCount": {
+        "get": {
+          "tags": [
+            "count"
+          ],
+          "summary": "Get Active, Recovered, Deceased count",
+          "description": "",
+          "operationId": "getAllCount",
+          "produces": [
+            "application/json",
+            "application/xml"
+          ],
+          "responses": {
+            "200": {
+              "description": "successful operation",
+              "schema": {
+                "$ref": "#/definitions/Count"
+              }
+            },
+            "400": {
+              "description": "Invalid supplied"
+            },
+            "404": {
+              "description": "Not found"
+            },
+            "422": {
+                "description": "Unprocessable Entity"
+            }
+          }
+        }
+      },
+      "/search": {
+        "post": {
+          "tags": [
+            "search"
+          ],
+          "summary": "Get search",
+          "description": "",
+          "operationId": "search",
+          "produces": [
+            "application/json",
+            "application/xml"
+          ],
+          "parameters": [
+            {
+                "name": "body",
+                "in": "body",
+                "required": true,
+                "type": "string",
+                "schema": {
+                    "$ref": "#/definitions/Search"
+                }
+            }
+        ],
+          "responses": {
+            "200": {
+              "description": "successful operation",
+              "schema": {
+                "$ref": "#/definitions/Search"
+              }
+            },
+            "400": {
+              "description": "Invalid supplied"
+            },
+            "404": {
+              "description": "Not found"
+            },
+            "422": {
+                "description": "Unprocessable Entity"
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "State": {
+        "type": "object",
+        "properties": {
+          "sucess": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "stateData": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/StateCount"
+            }
+          }
+        }
+      },
+      "StateCount": {
+        "type": "object",
+        "properties": {
+          "stateName": {
+            "type": "string"
+          },
+          "recover": {
+            "type": "number"
+          },
+          "active": {
+            "type": "number"
+          },
+          "death": {
+            "type": "number"
+          },
+          "total": {
+            "type": "number"
+          }
+        }
+      },
+      "Count": {
+        "type": "object",
+        "properties": {
+            "body": {
+                "items": {
+                    "$ref": "#/definitions/Body"
+                  }
+            },
+            "data": {
+                "recoveredCount": {
+                    "type": "number"
+                  },
+                  "activeCount": {
+                    "type": "number"
+                  },
+                  "deceasedCount": {
+                    "type": "number"
+                  }
+            }
+        }
+      },
+      "Search": {
+        "type": "object",
+        "properties": {
+            "value": {
+                "type": "string"
+            }
+        },
+        "example": {
+            "value": "Kerala"
+        }
+    },
+      "Body": {
+        "type": "object",
+        "properties": {
+                "success": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+        }
+      }
+    }
+  }

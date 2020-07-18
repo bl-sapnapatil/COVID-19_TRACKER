@@ -52,6 +52,12 @@ const router = require('./server/routes');
 const config = require('./config').get();
 
 /**
+ * @description Initialize the swagger
+ */
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocs = require('./server/swagger/swagger.json');
+
+/**
  * @description Winston logger derived from the config
  */
 const { logger } = config;
@@ -116,6 +122,11 @@ if (!config.isProduction) {
 	 */
 	//require('./server/lib')(app, config.tanents);
 }
+
+/**
+ * @description Enable the Swagger
+ */
+app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 /**
  * @description API Access Gatway
