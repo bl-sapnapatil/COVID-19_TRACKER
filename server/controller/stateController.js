@@ -9,7 +9,7 @@ const service = require('../services/stateService');
 const config = require('../../config').get();
 /**
  * @description Winston logger derived from the config
- */
+; */
 const { loggers } = config;
 
 class StateController {
@@ -18,9 +18,9 @@ class StateController {
 	 * @param {httpRequest} req
 	 * @param {httpResponse} res
 	 */
-	async getAllStateData(req, res) {
+	getAllStateData(req, res) {
 		try {
-			await service
+			service
 				.getStateData()
 				.then(data => {
 					res.status(200).send(data);
@@ -36,13 +36,19 @@ class StateController {
 		}
 	}
 
-	async getDateWiseStats(req, res) {
+	getDateWiseStats(req, res) {
 		try {
-			var startDate = req.query.startDate;
-			await service
+			let startDate = req.query.startDate;
+
+			if (startDate === undefined) throw 'start date undefined';
+
+			let date_regex = '^([0]?[1-9]|[1|2][0-9]|[3][0|1])[./-]([0]?[1-9]|[1][0-2])[./-]([0-9]{4}|[0-9]{2})$';
+
+			if (!startDate.match(date_regex)) throw 'date not valid';
+			service
 				.getDateStateStats(startDate)
 				.then(data => {
-					res.status(200).send(data);
+					res.send(data);
 				})
 				.catch(err => {
 					loggers.error('error', err);
@@ -50,6 +56,7 @@ class StateController {
 				});
 		} catch (error) {
 			res.status(422).send({
+				error: error,
 				message: 'Operation failed',
 			});
 		}

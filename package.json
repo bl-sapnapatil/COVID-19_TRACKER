@@ -4,7 +4,7 @@
   "description": "",
   "main": "config.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "nodemon index.js",
     "format": "prettier --write './server/*.js' './index.js' './config/*.js'",
     "test": "mocha",
     "lint:fix": "./node_modules/eslint/bin/eslint.js . --fix",

@@ -6,22 +6,10 @@ class casesModel {
 	 * @description casesModel return the all cases found in db.
 	 */
 	getAllData() {
-		return Covid19.find()
-			.then(result => {
-				return result;
-			})
-			.catch(err => {
-				return err;
-			});
+		return Covid19.find();
 	}
 	getDateWiseData(query) {
-		return Covid19.find(query)
-			.then(result => {
-				return result;
-			})
-			.catch(err => {
-				return err;
-			});
+		return Covid19.find(query);
 	}
 }
 module.exports = new casesModel();

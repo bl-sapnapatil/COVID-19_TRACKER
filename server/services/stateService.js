@@ -23,20 +23,30 @@ class StateService {
 	getStateData() {
 		return new Promise((resolve, reject) => {
 			covidModel
-				.getData()
+				.getAllData()
 				.then(result => {
-					let response = this.getStateStats(result);
-					redisService.set(COVID19_STATE_STATS_CACHEKEY, JSON.stringify(response), (error, result) => {
-						if (error) {
-							loggers.info('error', error);
-						} else {
-							loggers.info('Success get all state wise data', result);
-						}
-					});
-					resolve(response);
+					this.getStateStats(result)
+						.then(response => {
+							redisService.set(
+								COVID19_STATE_STATS_CACHEKEY,
+								JSON.stringify(response),
+								(error, result) => {
+									if (error) {
+										loggers.error('error', error);
+										return reject(error);
+									} else {
+										loggers.info('Success get all state wise data', result);
+										return resolve(response);
+									}
+								}
+							);
+						})
+						.catch(error => {
+							return reject(error);
+						});
 				})
 				.catch(err => {
-					reject(err);
+					return reject(err);
 				});
 		});
 	}
@@ -52,8 +62,13 @@ class StateService {
 			covidModel
 				.getDateWiseData(query)
 				.then(result => {
-					let response = this.getStateStats(result);
-					resolve(response);
+					this.getStateStats(result)
+						.then(response => {
+							return resolve(response);
+						})
+						.catch(err => {
+							return reject(err);
+						});
 				})
 				.catch(err => {
 					reject(err);
@@ -68,7 +83,7 @@ class StateService {
 	 * @description if :- if state in statesArray matches with an completedData state then check
 	 * 						completeData of currentStatus and increment count.
 	 */
-	getStateStats(data) {
+	async getStateStats(data) {
 		let casesRecord = {};
 		let activeCount = 0;
 		let recoveredCount = 0;
@@ -77,8 +92,8 @@ class StateService {
 		let finalRecord = [];
 		let completeData = [];
 
-		let result = JSON.parse(JSON.stringify(data));
-		completeData = result.map(({ detectedstate, currentstatus }) => ({
+		let result = await JSON.parse(JSON.stringify(data));
+		completeData = await result.map(({ detectedstate, currentstatus }) => ({
 			detectedstate,
 			currentstatus,
 		}));
