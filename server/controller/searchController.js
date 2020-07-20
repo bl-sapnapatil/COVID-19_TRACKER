@@ -28,6 +28,7 @@ class searchController {
 			let request = {
 				value: req.body.value
 			};
+			logger.info('request===================>',request);
 			await service.getSearch(request, (error, result) => {
 				if (error) {
 					logger.error('error---------------->', error);

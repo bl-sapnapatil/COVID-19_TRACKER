@@ -20,9 +20,23 @@ class SearchService {
 				index: 'covid19_data',
 				body: {
 					query: {
-						match: {
-							detectedstate: request.value,
-						},
+						// bool:{
+						// 	must: {
+								match: {
+									// name: {
+									// 	fuzziness: 2,
+									// 	operator: "or",
+										detectedstate:  request.value,
+										// detecteddistrict: request.value,
+									// }
+								},
+								// filter: {
+								// 	terms: {
+								// 	  category: ['detectedstate', 'detecteddistrict']
+								// 	}
+								// }
+						// 	}
+						// }
 					},
 				},
 			},
