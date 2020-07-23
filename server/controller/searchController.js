@@ -40,9 +40,15 @@ class searchController {
 						'result ---------------->',
 						JSON.stringify(result)
 					);
-					response.body = responseObject.successObject;
-					response.data = result;
-					return res.status(200).send(response);
+					if ( result.length !== 0 ) {
+						response.body = responseObject.successObject;
+						response.data = result;
+						return res.status(200).send(response);
+					} else {
+						response.body = responseObject.dataNotFound;
+						response.data = result;
+						return res.status(404).send(response);
+					}
 				}
 			});
 		} catch (error) {

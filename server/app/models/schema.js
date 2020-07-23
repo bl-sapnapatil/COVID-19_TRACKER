@@ -7,6 +7,8 @@
  *******************************************************************************************/
 
 const mongoose = require('mongoose');
+const config = require('../../../config').get();
+const { logger } = config;
 var Schema = mongoose.Schema;
 var Covid19_Data = mongoose.model(
 	'Covid19_Data',

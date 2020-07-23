@@ -1,7 +1,7 @@
 /*******************************************************************************************
  * @Purpose   : Get Data of searched value
  * @file      : stateService.js
- * @overview  : Get data according to search value
+ * @overview  : Get data according to search value from Elasticsearch
  * @author    : SINDOOJA GAJAM
  * @since     : 08/07/2020
  *******************************************************************************************/
@@ -12,6 +12,8 @@ const client = new Client({
 	maxRetries: 5,
 	requestTimeout: 60000
 });
+const config = require('../../config').get();
+const { logger } = config;
 
 class SearchService {
 	async getSearch(request, callback) {
