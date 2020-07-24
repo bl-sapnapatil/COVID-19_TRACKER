@@ -18,6 +18,10 @@ const client = new Client({
 const { logger } = config;
 
 class Covid19CountService {
+	constructor() {
+		this.countSchedule();
+	}
+
 	async getAllCount() {
 		let activeCount = 0,
 			recoveredCount = 0,
@@ -27,7 +31,8 @@ class Covid19CountService {
 		console.log('Calling getData');
 		// eslint-disable-next-line prettier/prettier
 		let result = await models.getData();
-		await result.map(element => {
+		console.log("result===============>",result.data.length);
+		await result.data.map(element => {
 			covid19_data.push(element);
 		});
 		client.ping(
@@ -74,7 +79,9 @@ class Covid19CountService {
 		count = {
 			recoveredCount: recoveredCount,
 			activeCount: activeCount,
-			deceasedCount: deceasedCount
+			deceasedCount: deceasedCount,
+			totalPages: result.totalPages,
+			currentPage: result.currentPage,
 		};
 		
 		// eslint-disable-next-line no-unused-vars
@@ -92,6 +99,7 @@ class Covid19CountService {
 	}
 
 	countSchedule() {
+		//will run every day at 12:00 AM
 		cron.schedule('0 0 0 * * *', () => {
 			console.log('running a task every minute');
 			this.getAllCount();

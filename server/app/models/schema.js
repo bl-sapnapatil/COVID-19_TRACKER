@@ -26,8 +26,26 @@ var Covid19_Data = mongoose.model(
 );
 
 class casesModel {
-	getData() {
-		return Covid19_Data.find().limit(100);
+	async getData(page = 1) {
+		const PAGE_SIZE = 10000;                     // Similar to 'limit'
+        const skip = (page - 1) * PAGE_SIZE;		 // For page 1, the skip is: (1 - 1) * 20 => 0 * 20 = 0
+		const data = await Covid19_Data.find().skip(skip)        // Always use 'skip' first
+		.limit(PAGE_SIZE)
+		.exec();
+		// get total documents in the Posts collection 
+		const count = await Covid19_Data.countDocuments();
+		console.log(page);
+		return ({
+			data,
+			totalPages: Math.ceil(count / PAGE_SIZE),
+			currentPage: page
+		  });
+		// .aggregate([
+        //     { $match: {} },
+        //     { $skip: (page - 1) * PAGE_SIZE },
+        //     { $limit: PAGE_SIZE },
+        // ])
+		
 	}
 }
 module.exports = new casesModel();
