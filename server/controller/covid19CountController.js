@@ -26,13 +26,13 @@ class Covid19CountController {
 					redisService.get('COVID19_COUNT', covid19Count => {
 						result.body = responseObject.successObject;
 						result.data = JSON.parse(covid19Count);
-						return res.status(200).send(result);
+						return res.status(responseObject.successObject.statusCode).send(result);
 					});
 				})
 				.catch(error => {
 					result.body = responseObject.errorObject;
 					result.error = error;
-					return res.status(400).send(result);
+					return res.status(responseObject.errorObject.statusCode).send(result);
 				});
 		} catch (error) {
 			return res.status(422).send(error);

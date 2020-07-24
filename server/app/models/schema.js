@@ -34,18 +34,11 @@ class casesModel {
 		.exec();
 		// get total documents in the Posts collection 
 		const count = await Covid19_Data.countDocuments();
-		console.log(page);
 		return ({
 			data,
 			totalPages: Math.ceil(count / PAGE_SIZE),
 			currentPage: page
-		  });
-		// .aggregate([
-        //     { $match: {} },
-        //     { $skip: (page - 1) * PAGE_SIZE },
-        //     { $limit: PAGE_SIZE },
-        // ])
-		
+		});	
 	}
 }
 module.exports = new casesModel();

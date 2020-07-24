@@ -28,10 +28,8 @@ class Covid19CountService {
 			deceasedCount = 0,
 			count = {},
 			covid19_data = [];
-		console.log('Calling getData');
 		// eslint-disable-next-line prettier/prettier
 		let result = await models.getData();
-		console.log("result===============>",result.data.length);
 		await result.data.map(element => {
 			covid19_data.push(element);
 		});

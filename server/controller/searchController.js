@@ -43,11 +43,11 @@ class searchController {
 					if ( result.length !== 0 ) {
 						response.body = responseObject.successObject;
 						response.data = result;
-						return res.status(200).send(response);
+						return res.status(responseObject.successObject.statusCode).send(response);
 					} else {
 						response.body = responseObject.dataNotFound;
 						response.data = result;
-						return res.status(404).send(response);
+						return res.status(responseObject.dataNotFound.statusCode).send(response);
 					}
 				}
 			});
